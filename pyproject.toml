@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "voxbudget"
+version = "1.0.0"
+description = "VoxBudget — a real-time multimodal voice assistant pipeline with a decomposed latency budget, per-stage timeouts, circuit breakers, and a graceful-degradation ladder."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Sravanthi Panga" }]
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.9",
+    "websockets>=13",
+]
+
+[project.optional-dependencies]
+# Real provider adapters (all optional — the simulated providers need none of these)
+realtime = [
+    "openai>=1.50",          # OpenAI Realtime API (gpt-realtime) + Whisper
+    "deepgram-sdk>=3.6",     # Deepgram Nova-3 streaming STT
+    "elevenlabs>=1.10",      # ElevenLabs Flash v2.5 TTS (Cartesia Sonic via httpx)
+]
+observability = [
+    "opentelemetry-api>=1.27",
+    "opentelemetry-sdk>=1.27",
+    "opentelemetry-instrumentation-fastapi>=0.48b0",
+    "prometheus-client>=0.21",
+]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "httpx>=0.27",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+voxbudget = "voxbudget.api:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["voxbudget"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
