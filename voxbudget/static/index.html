@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>VoxBudget — Real-Time Voice, On Budget</title>
+<link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+<header>
+  <h1>🎙️ VoxBudget</h1>
+  <p class="sub">A real-time multimodal voice pipeline with a decomposed <strong>800&nbsp;ms latency budget</strong>, per-stage timeouts, circuit breakers, and a graceful-degradation ladder.</p>
+  <div class="badges">
+    <span id="modeBadge" class="badge ok">mode: full_voice</span>
+    <span id="firstAudioBadge" class="badge">first audio: —</span>
+    <span id="budgetBadge" class="badge">budget: 800 ms</span>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Talk to it</h2>
+    <div class="row">
+      <button id="micBtn">🎤 Speak</button>
+      <input id="textIn" type="text" placeholder="…or type a question and press Enter" />
+      <button id="sendBtn">Send turn</button>
+    </div>
+    <p class="hint">Speak uses your browser's speech recognition + speech synthesis for real voice in/out. The server pipeline times every stage either way. Try: <em>“How does the latency budget work?”</em></p>
+    <div id="transcript" class="transcript"></div>
+    <div id="reply" class="reply"></div>
+  </section>
+
+  <section class="card">
+    <h2>Latency waterfall — this turn vs budget</h2>
+    <div id="waterfall"></div>
+    <p class="hint">Bars are measured stage latency; the tick is the stage budget. Red = over budget / timed out. First-audio total counts only the critical path — LLM/TTS completion streams behind playback.</p>
+  </section>
+
+  <section class="card">
+    <h2>Chaos panel — break it, watch it degrade</h2>
+    <div class="row wrap">
+      <button data-chaos="stt-delay">🐢 +900 ms STT delay</button>
+      <button data-chaos="llm-fail">💥 Fail the LLM</button>
+      <button data-chaos="tts-fail">🔇 Fail TTS</button>
+      <button data-chaos="clear">✅ Clear chaos</button>
+    </div>
+    <p class="hint">A failed or timed-out stage drops the degradation ladder: full_voice → short_replies → text_only → cached_fallback → safe_fail. Five healthy turns climb back up one level.</p>
+    <pre id="chaosOut"></pre>
+  </section>
+
+  <section class="card">
+    <h2>Session stats (p50 / p95 / p99)</h2>
+    <pre id="statsOut">No turns yet.</pre>
+  </section>
+</main>
+<footer>VoxBudget · FastAPI + WebSockets · simulated providers by default (Deepgram Nova-3 / OpenAI Realtime / Cartesia Sonic adapters included) · <a href="/budget">/budget</a> · <a href="/metrics">/metrics</a> · <a href="/stats">/stats</a></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
