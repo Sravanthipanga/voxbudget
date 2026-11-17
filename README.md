@@ -6,7 +6,7 @@ Talk to it in the browser (real voice in/out via the Web Speech API), watch ever
 
 Built on the 2025–26 real-time voice stack: **FastAPI + WebSockets** streaming, a **Pipecat / LiveKit Agents-style** stage pipeline, provider interfaces shaped on **Deepgram Nova-3** (STT), **OpenAI Realtime / gpt-realtime** (LLM), and **Cartesia Sonic / ElevenLabs Flash** (TTS), with **Prometheus** metrics and **OpenTelemetry-ready** tracing. Simulated providers run the whole thing with **zero API keys**.
 
-![Python 3.12](https://img.shields.io/badge/python-3.12-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688) ![Tests](https://img.shields.io/badge/tests-40%20passing-brightgreen) ![License MIT](https://img.shields.io/badge/license-MIT-green)
+![Python 3.12](https://img.shields.io/badge/python-3.12-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688) ![Tests](https://img.shields.io/badge/tests-40%20passing-brightgreen) ![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)
 
 ---
 
@@ -84,4 +84,4 @@ Simulated providers are deterministic, latency-shaped stand-ins. Adapters for **
 
 ## License
 
-MIT © Sravanthi Panga
+Apache-2.0 © Sravanthi Panga
