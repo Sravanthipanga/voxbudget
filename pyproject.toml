@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "VoxBudget — a real-time multimodal voice assistant pipeline with a decomposed latency budget, per-stage timeouts, circuit breakers, and a graceful-degradation ladder."
 readme = "README.md"
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = { text = "Apache-2.0" }
 authors = [{ name = "Sravanthi Panga" }]
 dependencies = [
     "fastapi>=0.115",
